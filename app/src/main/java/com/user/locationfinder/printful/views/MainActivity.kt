@@ -1,6 +1,7 @@
 package com.user.locationfinder.printful.views
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -8,17 +9,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.wundermobility.carrental.printful.models.UserInfo
-import com.wundermobility.carrental.printful.viewmodels.MainActivityViewModel
-import kotlin.collections.ArrayList
-import com.google.android.gms.maps.model.LatLngBounds
 import com.user.locationfinder.R
 import com.user.locationfinder.databinding.ActivityMainBinding
 import com.wundermobility.carrental.printful.models.CustomInfo
+import com.wundermobility.carrental.printful.models.UserInfo
 import com.wundermobility.carrental.printful.models.UserUpdatedInfo
 import com.wundermobility.carrental.printful.utils.AddressFetcher
+import com.wundermobility.carrental.printful.viewmodels.MainActivityViewModel
+
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val markerList = ArrayList<Marker?>()
     private val viewModels: MainActivityViewModel by viewModels()
+    private var mapView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        mapView = mapFragment.view
+
+        mapView?.contentDescription = "Map is yet to be loaded"
 
         observeViewModels()
     }
@@ -65,9 +71,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions().position(geoPosition).title(it.name).snippet(it.profileImage);
 
             val inMarker: Marker? = mMap?.addMarker(markerOptions)
-            inMarker?.tag = CustomInfo(it.id, AddressFetcher.getAddressFromLatLong(
-                baseContext, it.latitude, it.longitude
-            ))
+            inMarker?.tag = CustomInfo(
+                it.id, AddressFetcher.getAddressFromLatLong(
+                    baseContext, it.latitude, it.longitude
+                )
+            )
             markerList.add(inMarker)
         }
 
@@ -80,20 +88,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun updateUserLocationDynamically(userUpdatedInfo: UserUpdatedInfo) {
         markerList.forEach {
 
-           if( it?.tag is CustomInfo){
-               if ((it.tag as CustomInfo).id == userUpdatedInfo.id) {
-                   it.position = LatLng(userUpdatedInfo.latitude, userUpdatedInfo.longitude)
+            if (it?.tag is CustomInfo) {
+                if ((it.tag as CustomInfo).id == userUpdatedInfo.id) {
+                    it.position = LatLng(userUpdatedInfo.latitude, userUpdatedInfo.longitude)
 
-                   if(it.isInfoWindowShown){
-                       it.showInfoWindow()
-                   }
+                    if (it.isInfoWindowShown) {
+                        it.showInfoWindow()
+                    }
 
-                   it.tag = CustomInfo(userUpdatedInfo.id,AddressFetcher.getAddressFromLatLong(
-                       baseContext, userUpdatedInfo.latitude, userUpdatedInfo.longitude
-                   ))
+                    it.tag = CustomInfo(
+                        userUpdatedInfo.id, AddressFetcher.getAddressFromLatLong(
+                            baseContext, userUpdatedInfo.latitude, userUpdatedInfo.longitude
+                        )
+                    )
 
-               }
-           }
+                }
+            }
         }
     }
 
