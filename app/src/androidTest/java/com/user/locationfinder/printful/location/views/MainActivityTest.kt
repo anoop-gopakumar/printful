@@ -1,4 +1,4 @@
-package com.user.locationfinder.printful.views
+package com.user.locationfinder.printful.location.views
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest

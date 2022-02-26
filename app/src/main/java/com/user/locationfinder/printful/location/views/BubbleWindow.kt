@@ -1,4 +1,4 @@
-package com.user.locationfinder.printful.views
+package com.user.locationfinder.printful.location.views
 
 import android.content.Context
 import android.view.LayoutInflater

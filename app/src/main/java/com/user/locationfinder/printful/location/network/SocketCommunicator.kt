@@ -1,10 +1,11 @@
-package com.user.locationfinder.printful.network
+package com.user.locationfinder.printful.location.network
 
 import android.util.Log
 import java.io.*
 import java.net.Socket
 import androidx.lifecycle.MutableLiveData
 import com.wundermobility.carrental.printful.models.UserInfo
+import com.user.locationfinder.printful.musiclocationfinder.models.Places
 import com.wundermobility.carrental.printful.models.UserUpdatedInfo
 import com.wundermobility.carrental.printful.utils.StringParser
 import kotlinx.coroutines.*

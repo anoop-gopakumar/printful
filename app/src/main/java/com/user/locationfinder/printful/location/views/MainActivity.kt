@@ -1,4 +1,4 @@
-package com.user.locationfinder.printful.views
+package com.user.locationfinder.printful.location.views
 
 import android.os.Bundle
 import android.view.View
@@ -16,6 +16,7 @@ import com.user.locationfinder.R
 import com.user.locationfinder.databinding.ActivityMainBinding
 import com.wundermobility.carrental.printful.models.CustomInfo
 import com.wundermobility.carrental.printful.models.UserInfo
+import com.user.locationfinder.printful.musiclocationfinder.models.Places
 import com.wundermobility.carrental.printful.models.UserUpdatedInfo
 import com.wundermobility.carrental.printful.utils.AddressFetcher
 import com.wundermobility.carrental.printful.viewmodels.MainActivityViewModel

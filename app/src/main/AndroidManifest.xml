@@ -32,7 +32,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".printful.views.MainActivity"
+            android:name=".printful.musiclocationfinder.views.HomeMapActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>

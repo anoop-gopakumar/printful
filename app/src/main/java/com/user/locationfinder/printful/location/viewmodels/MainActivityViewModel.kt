@@ -3,8 +3,9 @@ package com.wundermobility.carrental.printful.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.user.locationfinder.printful.network.SocketCommunicator
+import com.user.locationfinder.printful.location.network.SocketCommunicator
 import com.wundermobility.carrental.printful.models.UserInfo
+import com.user.locationfinder.printful.musiclocationfinder.models.Places
 import com.wundermobility.carrental.printful.models.UserUpdatedInfo
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
